@@ -24,8 +24,10 @@ public class UsrHomeController {
 		articlesLastId = 0;
 		articles = new ArrayList<>();
 		// 게시물 2개 생성
-		//articles.add(new Article(++articlesLastId, "2020-12-12 12:12:12", "제목1", "내용1"));
-		//articles.add(new Article(++articlesLastId, "2020-12-12 12:12:12", "제목2", "내용2"));
+		// articles.add(new Article(++articlesLastId, "2020-12-12 12:12:12", "제목1",
+		// "내용1"));
+		// articles.add(new Article(++articlesLastId, "2020-12-12 12:12:12", "제목2",
+		// "내용2"));
 
 	}
 
@@ -46,17 +48,11 @@ public class UsrHomeController {
 	public Map<String, Object> doAdd(String title, String body) {
 		String regDate = Util.getNowDateStr();
 		String updateDate = regDate;
-		
-		articles.add(new Article(++articlesLastId, regDate,updateDate, title, body));
 
-		Map<String, Object> rs = new HashMap<>();
-		rs.put("resultCode", "S-1");
-		rs.put("msg", "성공하셨습니다.");
-		rs.put("id", articlesLastId);
-		return rs;
+		articles.add(new Article(++articlesLastId, regDate, updateDate, title, body));
+
+		return Util.mapOf("resultCode", "S-1", "msg", "성공하셨습니다.", "id", articlesLastId);
 	}
-
-
 
 	@RequestMapping("/usr/article/doDelete")
 	@ResponseBody
@@ -64,15 +60,10 @@ public class UsrHomeController {
 		boolean deleteArticleRs = deleteArticle(id);
 		Map<String, Object> rs = new HashMap<>();
 
-		if (deleteArticleRs) {
-			rs.put("resultCode", "S-1");
-			rs.put("msg", "성공하셨습니다.");
-		} else {
-			rs.put("resultCode", "F-1");
-			rs.put("msg", "해당 게시물은 존재하지 않습니다.");
+		if (deleteArticleRs == false) {
+			return Util.mapOf("resultCode", "F-1", "msg", "해당 게시물은 존재하지 않습니다.");
 		}
-		rs.put("id", id);
-		return rs;
+		return Util.mapOf("resultCode", "S-1", "msg","성공하셨습니다.", "id",id);
 	}
 
 	private boolean deleteArticle(int id) {
@@ -90,8 +81,8 @@ public class UsrHomeController {
 	public Map<String, Object> doModify(int id, String title, String body) {
 		Article selArticle = null;
 
-		for ( Article article : articles ) {
-			if ( article.getId() == id ) {
+		for (Article article : articles) {
+			if (article.getId() == id) {
 				selArticle = article;
 				break;
 			}
@@ -100,20 +91,14 @@ public class UsrHomeController {
 		Map<String, Object> rs = new HashMap<>();
 
 		if (selArticle == null) {
-			rs.put("resultCode", "F-1");
-			rs.put("msg", String.format("%d번 게시물은 존재하지 않습니다.", id));
-			return rs;
+			return Util.mapOf("resultCode", "F-1", "msg", String.format("%d번 게시물은 존재하지 않습니다.", id));
 		}
-		
+
 		selArticle.setUpdateDate(Util.getNowDateStr());
 		selArticle.setTitle(title);
 		selArticle.setBody(body);
 
-		rs.put("resultCode", "S-1");
-		rs.put("msg", String.format("%d번 게시물이 수정되었습니다.", id));
-		rs.put("id", id);
-
-		return rs;
+		return Util.mapOf("resultCode", "S-1", "msg", String.format("%d번 게시물이 수정되었습니다.", id),"id", id);
 	}
 
 }
