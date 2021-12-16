@@ -8,6 +8,7 @@ import java.util.Map;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.sbs.untact.dto.Article;
@@ -50,7 +51,10 @@ public class UsrHomeController {
 
 	@RequestMapping("/usr/article/doDelete")
 	@ResponseBody
-	public ResultData doDelete(int id) {
+	public ResultData doDelete(Integer id) {
+		if (id == null) {
+			return new ResultData("F-1", "아이디를 입력해주세요.");
+		}
 		Article article = articleService.getArticle(id);
 		if (article == null) {
 			return new ResultData("F-1", "해당 게시물은 존재하지 않습니다.");
@@ -61,7 +65,17 @@ public class UsrHomeController {
 
 	@RequestMapping("/usr/article/doModify")
 	@ResponseBody
-	public ResultData doModify(int id, String title, String body) {
+	public ResultData doModify(Integer id, String title, String body) {
+		if (id == null) {
+			return new ResultData("F-1", "아이디를 입력해주세요.");
+		}
+		if (title == null) {
+			return new ResultData("F-1", "제목을 입력해주세요.");
+		}
+		if (body == null) {
+			return new ResultData("F-1", "내용을 입력해주세요.");
+		}
+		
 		Article article = articleService.getArticle(id);
 		if (article == null) {
 			return new ResultData("F-1", "해당 게시물은 존재하지 않습니다.");
