@@ -25,8 +25,16 @@ public class UsrHomeController {
 
 	@RequestMapping("/usr/article/list")
 	@ResponseBody
-	public List<Article> showList(String searchKeyword) {
-		System.out.println("searchKeyword : " + searchKeyword);
+	public List<Article> showList(String searchKeywordType, String searchKeyword) {
+		if (searchKeywordType != null) {
+			searchKeywordType = searchKeywordType.trim();
+		}
+		
+		if (searchKeywordType == null || searchKeywordType.length() == 0) {
+			searchKeywordType = "titleAndBody";
+		}
+	
+		
 		if (searchKeyword != null && searchKeyword.length() == 0) {
 			searchKeyword = null;
 		}
@@ -34,7 +42,7 @@ public class UsrHomeController {
 		if (searchKeyword != null) {
 			searchKeyword = searchKeyword.trim();
 		}
-		return articleService.getArticles(searchKeyword);
+		return articleService.getArticles(searchKeywordType, searchKeyword);
 	}
 
 	@RequestMapping("/usr/article/doAdd")

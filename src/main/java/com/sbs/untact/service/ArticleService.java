@@ -20,7 +20,7 @@ public class ArticleService {
 		articlesLastId = 0;
 		articles = new ArrayList<>();
 		// 게시물 2개 생성
-		articles.add(new Article(++articlesLastId, "2020-12-12 12:12:12", null, "제목1", "내용1"));
+		articles.add(new Article(++articlesLastId, "2020-12-12 12:12:12", null, "제목1입니다.", "내용1입니다."));
 		articles.add(new Article(++articlesLastId, "2020-12-12 12:12:12", null, "제목2", "내용2"));
 
 	}
@@ -34,15 +34,28 @@ public class ArticleService {
 		return null;
 	}
 
-	public List<Article> getArticles(String searchKeyword) {
+	public List<Article> getArticles(String searchKeywordType, String searchKeyword) {
+
 		if (searchKeyword == null) {
 			return articles;
 		}
-		
+
 		List<Article> filtered = new ArrayList<>();
-		
+
 		for (Article article : articles) {
-			if (article.getTitle().contains(searchKeyword)) {
+			boolean contains = false;
+
+			if (searchKeywordType.equals("title")) {
+				contains = article.getTitle().contains(searchKeyword);
+			} else if (searchKeywordType.equals("body")) {
+				contains = article.getBody().contains(searchKeyword);
+			} else {
+				contains = article.getTitle().contains(searchKeyword);
+				if (contains == false) {
+					contains = article.getBody().contains(searchKeyword);
+				}
+			}
+			if (contains) {
 				filtered.add(article);
 			}
 		}
@@ -72,12 +85,11 @@ public class ArticleService {
 
 	public ResultData modify(int id, String title, String body) {
 		Article article = getArticle(id);
-		
+
 		article.setTitle(title);
 		article.setBody(body);
 		article.setUpdateDate(Util.getNowDateStr());
-		
-		
+
 		return new ResultData("S-1", "수정에 성공하였습니다.", "id", id);
 	}
 }
