@@ -23,6 +23,6 @@ public class ResultData {
 	}
 	
 	public boolean isFail() {
-		return resultCode.startsWith("F-1");
+		return resultCode.startsWith("F-");
 	}
 }

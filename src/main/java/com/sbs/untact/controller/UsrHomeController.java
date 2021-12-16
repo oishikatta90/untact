@@ -55,7 +55,7 @@ public class UsrHomeController {
 			return new ResultData("F-1", "내용을 입력해주세요.");
 		}
 
-		ResultData rsData = articleService.add(title, body);
+		ResultData rsData = articleService.addArticle(title, body);
 
 		return rsData;
 	}
@@ -92,6 +92,6 @@ public class UsrHomeController {
 			return new ResultData("F-1", "해당 게시물은 존재하지 않습니다.");
 		}
 		
-		return articleService.modify(id, title, body);
+		return articleService.modifyArticle(id, title, body);
 	}
 }
