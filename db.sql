@@ -37,3 +37,32 @@ SET regDate = NOW(),
     updateDate = NOW(),
     title = "제목3 입니다.",
     `body` = "내용3 입니다.";
+
+
+#회원  테이블 생성
+CREATE TABLE `member`(
+    id INT(10) UNSIGNED NOT NULL PRIMARY KEY AUTO_INCREMENT,
+    regDate DATETIME NOT NULL,
+    updateDate DATETIME NOT NULL,
+    loginId CHAR(30) NOT NULL,
+    loginPw CHAR(100) NOT NULL,
+    `name` CHAR(30) NOT NULL,
+    `nickname` CHAR(30) NOT NULL,
+    `email` CHAR(100) NOT NULL,
+    `cellphoneNo` CHAR(20) NOT NULL
+);
+
+#로그인 Id로 검색했을 때
+ALTER TABLE `member` ADD UNIQUE INDEX (`loginId`); 
+
+#회원, 테스트 데이터 생성
+INSERT INTO `member`
+SET 
+regDate = NOW(),
+updateDate = NOW(),
+loginId = "user1",
+loginPw = "1234",
+`name` = "사자",
+`nickname` = "호랑이",
+`cellphoneNo` = "01012344321",
+`email` = "saja@go.com";
