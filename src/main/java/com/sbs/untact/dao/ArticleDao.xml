@@ -34,9 +34,9 @@
 		INSERT INTO article
 		SET regDate = NOW(),
 		updateDate = NOW(),
-		title =
-		#{title},
-		`body` = #{body}
+		title =#{title},
+		`body` = #{body},
+		memberId = #{memberId}
 	</insert>
 
 	<delete id="deleteArticle">

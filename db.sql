@@ -66,3 +66,6 @@ loginPw = "1234",
 `nickname` = "호랑이",
 `cellphoneNo` = "01012344321",
 `email` = "saja@go.com";
+
+#칼럼 추가하기
+ALTER TABLE article ADD COLUMN memberID int(10) UNSIGNED NOT NULL AFTER updateDate;
