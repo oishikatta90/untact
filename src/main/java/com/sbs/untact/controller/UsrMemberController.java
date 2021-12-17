@@ -19,16 +19,16 @@ import com.sbs.untact.service.MemberService;
 public class UsrMemberController {
 	@Autowired
 	private MemberService memberService;
-	
+
 	@RequestMapping("/usr/member/doJoin")
 	@ResponseBody
 	public ResultData doJoin(@RequestParam Map<String, Object> param) {
 		if (param.get("loginId") == null) {
 			return new ResultData("F-1", "로그인 아이디를 입력해주세요.");
 		}
-		
+
 		Member existingMember = memberService.getMemberByLoginId((String) param.get("loginId"));
-		
+
 		if (existingMember != null) {
 			return new ResultData("F-2", String.format("%s(은)는 사용할 수 없는 아이디 입니다.", param.get("loginId")));
 		}
@@ -51,22 +51,22 @@ public class UsrMemberController {
 
 		return rsData;
 	}
-	
+
 	@RequestMapping("/usr/member/doLogin")
 	@ResponseBody
 	public ResultData doLogin(String loginId, String loginPw, HttpSession session) {
 		if (session.getAttribute("loginedMemberId") != null) {
 			return new ResultData("F-5", "이미 로그인 중인 아이디입니다.");
 		}
-		
-		if (loginId  == null) {
+
+		if (loginId == null) {
 			return new ResultData("F-1", "로그인 아이디를 입력해주세요.");
 		}
-		
+
 		Member existingMember = memberService.getMemberByLoginId(loginId);
-		
+
 		if (existingMember == null) {
-			return new ResultData("F-2", "존재하지 않는 아이디입니다.", "loginId", loginId); 
+			return new ResultData("F-2", "존재하지 않는 아이디입니다.", "loginId", loginId);
 		}
 		if (loginPw == null) {
 			return new ResultData("F-1", "비밀번호를 입력해주세요.");
@@ -74,9 +74,21 @@ public class UsrMemberController {
 		if (existingMember.getLoginPw().equals(loginPw) == false) {
 			return new ResultData("F-3", "비밀번호가 일치하지 않습니다.");
 		}
-		
+
 		session.setAttribute("loginedMemberId", existingMember.getId());
-			
+
 		return new ResultData("S-1", String.format("%s님 환영합니다.", existingMember.getNickname()));
+	}
+
+	@RequestMapping("/usr/member/doLogout")
+	@ResponseBody
+	public ResultData doLogout(HttpSession session) {
+		if (session.getAttribute("loginedMemberId") == null) {
+			return new ResultData("S-2", "이미 로그아웃 되었습니다.");
+		}
+		
+		session.removeAttribute("loginedMemberId");
+		
+		return new ResultData("S-1", "로그아웃 되었습니다.");
 	}
 }
