@@ -4,6 +4,8 @@ target/
 !**/src/main/**/target/
 !**/src/test/**/target/
 bin/
+LOG_PATH_IS_UNDEFINED/
+
 
 ### STS ###
 .apt_generated

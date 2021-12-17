@@ -7,22 +7,25 @@
 	<select id="getArticle" resultType="Article">
 		SELECT *
 		FROM article
-		WHERE id = #{id}
+		WHERE id
+		= #{id}
 	</select>
 
 	<select id="getArticles" resultType="Article">
 		SELECT *
 		FROM article
 		WHERE 1
-		<if test="searchKeywordType == 'title'">
-			AND title LIKE CONCAT('%', #{searchKeyword}, '%')
-		</if>
-		<if test="searchKeywordType == 'body'">
-			AND `body` LIKE CONCAT('%', #{searchKeyword}, '%')
-		</if>
-		<if test="searchKeywordType == 'titleAndBody'">
-			AND (title LIKE CONCAT('%', #{searchKeyword}, '%') OR `body` LIKE
-			CONCAT('%', #{searchKeyword}, '%'))
+		<if test="searchKeyword != null">
+			<if test="searchKeywordType == 'title'">
+				AND title LIKE CONCAT('%', #{searchKeyword}, '%')
+			</if>
+			<if test="searchKeywordType == 'body'">
+				AND `body` LIKE CONCAT('%', #{searchKeyword}, '%')
+			</if>
+			<if test="searchKeywordType == 'titleAndBody'">
+				AND (title LIKE CONCAT('%', #{searchKeyword}, '%') OR `body` LIKE
+				CONCAT('%', #{searchKeyword}, '%'))
+			</if>
 		</if>
 		ORDER BY id DESC
 	</select>
@@ -31,7 +34,8 @@
 		INSERT INTO article
 		SET regDate = NOW(),
 		updateDate = NOW(),
-		title = #{title},
+		title =
+		#{title},
 		`body` = #{body}
 	</insert>
 
