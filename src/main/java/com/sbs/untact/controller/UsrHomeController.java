@@ -69,10 +69,6 @@ public class UsrHomeController {
 		
 		int loginedMemberId = Util.getAsInt(session.getAttribute("loginedMemberId"), 0);
 		
-		if (loginedMemberId == 0) {
-			return new ResultData("F-2", "로그인부터 해주세요.");
-		}
-		
 		if (param.get("title") == null) {
 			return new ResultData("F-1", "타이틀을 입력해주세요.");
 		}
@@ -91,11 +87,7 @@ public class UsrHomeController {
 	@ResponseBody
 	public ResultData doDelete(Integer id, HttpSession session) {
 		int loginedMemberId = Util.getAsInt(session.getAttribute("loginedMemberId"), 0);
-		
-		if (loginedMemberId == 0) {
-			return new ResultData("F-2", "로그인부터 해주세요.");
-		}
-		
+
 		if (id == null) {
 			return new ResultData("F-1", "아이디를 입력해주세요.");
 		}
@@ -117,11 +109,6 @@ public class UsrHomeController {
 	@ResponseBody
 	public ResultData doModify(Integer id, String title, String body, HttpSession session) {
 		int loginedMemberId = Util.getAsInt(session.getAttribute("loginedMemberId"), 0);
-		
-		if (loginedMemberId == 0) {
-			return new ResultData("F-2", "로그인부터 해주세요.");
-		}
-		
 		if (id == null) {
 			return new ResultData("F-1", "아이디를 입력해주세요.");
 		}

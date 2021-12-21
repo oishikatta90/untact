@@ -4,32 +4,40 @@
 	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <mapper namespace="com.sbs.untact.dao.MemberDao">
+
 	<insert id="join" useGeneratedKeys="true" keyProperty="id">
-		INSERT INTO member
+		INSERT
+		INTO member
 		SET regDate = NOW(),
 		updateDate = NOW(),
-		loginId = #{loginId},
+		loginId =
+		#{loginId},
 		loginPw = #{loginPw},
 		`name` = #{name},
-		nickname = #{nickname},
+		nickname =
+		#{nickname},
 		cellphoneNo = #{cellphoneNo},
-		email = #{email} 
+		email = #{email}
 	</insert>
-	
+
 	<select id="getMember" resultType="Member">
-		SELECT * FROM `member`
-		WHERE loginId = #{loginId}	
+		SELECT *
+		FROM `member`
+		WHERE
+		loginId = #{id}
 	</select>
 
 	<select id="getMemberByLoginId" resultType="Member">
-		SELECT * FROM `member`
-		WHERE loginId = #{loginId}	
+		SELECT *
+		FROM `member`
+		WHERE loginId = #{loginId}
 	</select>
-	
+
 	<update id="modifyMember">
-		UPDATE `member`
+		UPDATE member
 		<set>
-			<if test="loginPw != null || name != null || nickname != null || cellphoneNo != null || emial != null">
+			<if
+				test="loginPw != null || name != null || nickname != null || cellphoneNo != null || email != null">
 				updateDate = NOW(),
 			</if>
 			<if test="loginPw != null">
@@ -39,17 +47,16 @@
 				`name` = #{name},
 			</if>
 			<if test="nickname != null">
-				nickname = #{nickname}
+				nickname = #{nickname},
 			</if>
 			<if test="cellphoneNo != null">
-				cellphoneNo = #{cellphoneNo}
+				cellphoneNo = #{cellphoneNo},
 			</if>
 			<if test="email != null">
-				`email` = #{email}
+				email = #{email},
 			</if>
 		</set>
-		WHERE 
-		id  = #{id}
+		WHERE id = #{id}
 	</update>
 
 </mapper>

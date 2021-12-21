@@ -23,8 +23,6 @@ public class BeforeActionInterceptor implements HandlerInterceptor {
 	@Override
 	public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
 		
-		
-		System.out.println("실행 되나????");
 
 		HttpSession session = request.getSession();
 		

@@ -12,35 +12,31 @@ import com.sbs.untact.util.Util;
 
 @Service
 public class MemberService {
-	
 	@Autowired
 	private MemberDao memberDao;
 
 	public ResultData join(Map<String, Object> param) {
-		
 		memberDao.join(param);
-		
+
 		int id = Util.getAsInt(param.get("id"), 0);
-		
-		return new ResultData("S-1", String.format("%s님 환영합니다.", param.get("name")), "id", id);
+
+		return new ResultData("S-1", String.format("%s님 환영합니다.", param.get("nickname")), "id", id);
 	}
-	
+
 	public Member getMember(int id) {
 		return memberDao.getMember(id);
 	}
-	
-	//DB에서 건네받은 자료로 동일한 자료가 있는지 찾는 메소드
+
 	public Member getMemberByLoginId(String loginId) {
 		return memberDao.getMemberByLoginId(loginId);
 	}
 
 	public ResultData modifyMember(Map<String, Object> param) {
-	
 		memberDao.modifyMember(param);
-		
+
 		return new ResultData("S-1", "회원정보가 수정되었습니다.");
 	}
-  
+
 	public boolean isAdmin(int actorId) {
 		return actorId == 1;
 	}
