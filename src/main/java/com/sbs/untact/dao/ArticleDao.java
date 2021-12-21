@@ -7,6 +7,7 @@ import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 
 import com.sbs.untact.dto.Article;
+import com.sbs.untact.dto.Board;
 
 @Mapper
 public interface ArticleDao {
@@ -26,4 +27,6 @@ public interface ArticleDao {
 
 	public List<Article> getForPrintArticles(@Param("boardId") int boardId, @Param("searchKeywordType") String searchKeywordType,
 			@Param("searchKeyword") String searchKeyword, @Param("limitStart")int limitStart, @Param("limitTake")int limitTake);
+
+	public Board getBoard(@Param("id") int id);
 }
