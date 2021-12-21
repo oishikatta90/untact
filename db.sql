@@ -82,3 +82,35 @@ insert into `article`
 select NOW(), NOW(), FLOOR(RAND() * 2) + 1, CONCAT('제목_',FLOOR(RAND() * 1000) + 1), CONCAT('내용_',FLOOR(RAND() * 1000) + 1)
 from article;
 */
+
+#게시판 테이블 생성
+CREATE TABLE `board` (
+    id INT(10) UNSIGNED NOT NULL PRIMARY KEY AUTO_INCREMENT,
+    regDate DATETIME NOT NULL,
+    updateDate DATETIME NOT NULL,
+    `code` CHAR(20) UNIQUE NOT NULL,
+    `name` CHAR(20) UNIQUE NOT NULL
+    );
+    
+#게시판 테이블에 게시판 2개 추가
+INSERT INTO `board`
+SET regDate = NOW(),
+    updateDate = NOW(),
+    `code` = 'notice',
+    `name` = '공지사항';
+    
+INSERT INTO `board`
+SET regDate = NOW(),
+    updateDate = NOW(),
+    `code` = 'free',
+    `name` = '자유게시판';
+
+# 게시물 테이블에 게시판 번호 칼럼 추가, updateDate 칼럼 뒤에
+ALTER TABLE article ADD COLUMN boardId INT(10) UNSIGNED NOT NULL AFTER updateDate;
+
+#기존 데이터를 랜덤하게 게시판 지정
+UPDATE article
+SET boardId = FLOOR(RAND() * 2) + 1
+WHERE boardId = 0;
+
+SELECT COUNT(*) FROM article WHERE boardId = 2;
