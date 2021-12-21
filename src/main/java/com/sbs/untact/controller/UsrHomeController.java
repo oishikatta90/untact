@@ -23,9 +23,20 @@ public class UsrHomeController {
 
 	@RequestMapping("/usr/article/detail")
 	@ResponseBody
-	public Article showDetail(int id) {
-		Article article = articleService.getArticle(id);
-		return article;
+	public ResultData showDetail(Integer id) {
+		if (id == null) {
+			return new ResultData("F-1", "id를 입력해주세요!");
+		}
+		
+		Article article = articleService.getForPrintArticle(id);
+		
+		if (article == null) {
+			return new ResultData("F-2", "존재하지 않는 게시물입니다!");
+		}
+		
+		return new ResultData("S-1", "성공", "article", article);
+		
+		
 	}
 
 	@RequestMapping("/usr/article/list")
