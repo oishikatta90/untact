@@ -14,5 +14,17 @@
 		AND R.relTypeCode = #{relTypeCode}
 		ANd R.relId = #{relId}
 	</select>
+	
+	<select id="getReply" resultType="Reply">
+		SELECT R.*
+		FROM reply AS R
+		WHERE 1
+		AND R.id = #{id}
+	</select>
+	
+	<delete id="deleteReply">
+		DELETE FROM reply
+		WHERE id = #{id}
+	</delete>
 
 </mapper>

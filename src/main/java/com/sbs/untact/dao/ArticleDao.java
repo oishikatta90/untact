@@ -11,24 +11,24 @@ import com.sbs.untact.dto.Board;
 
 @Mapper
 public interface ArticleDao {
-	public Article getArticle(@Param("id") int id);
+	Article getArticle(@Param("id") int id);
 
-	public void addArticle(Map<String, Object> param);
+	void addArticle(Map<String, Object> param);
 
-	public void deleteArticle(@Param("id") int id);
+	void deleteArticle(@Param("id") int id);
 
-	public void modifyArticle(@Param("id") int id, @Param(value = "title") String title,
-			@Param(value = "body") String body);
+	void modifyArticle(@Param("id") int id, @Param(value = "title") String title, @Param(value = "body") String body);
 
-	public List<Article> getArticles(@Param("searchKeywordType") String searchKeywordType,
+	List<Article> getArticles(@Param("searchKeywordType") String searchKeywordType,
 			@Param("searchKeyword") String searchKeyword);
 
-	public Article getForPrintArticle(@Param("id") int id);
+	Article getForPrintArticle(@Param("id") int id);
 
-	public List<Article> getForPrintArticles(@Param("boardId") int boardId, @Param("searchKeywordType") String searchKeywordType,
-			@Param("searchKeyword") String searchKeyword, @Param("limitStart")int limitStart, @Param("limitTake")int limitTake);
+	List<Article> getForPrintArticles(@Param("boardId") int boardId,
+			@Param("searchKeywordType") String searchKeywordType, @Param("searchKeyword") String searchKeyword,
+			@Param("limitStart") int limitStart, @Param("limitTake") int limitTake);
 
-	public Board getBoard(@Param("id") int id);
+	Board getBoard(@Param("id") int id);
 
-	public void addReply(Map<String, Object> param);
+	void addReply(Map<String, Object> param);
 }
