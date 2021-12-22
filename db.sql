@@ -146,3 +146,17 @@ SET regDate = NOW(),
     articleId = 2,
     memberId = 1,
     `body` = '내용3 입니다.';
+
+
+#현재는 게시물 댓글 밖에 없기 때문에 모든 행의 relTypeCode 칼럼의 값을 article로
+UPDATE reply
+SET relTypeCode = 'article'
+WHERE relTypeCode = ' ';
+
+#articleId 칼럼명을 relId로 수정
+ALTER TABLE reply CHANGE `articleId` `relId` INT(10) UNSIGNED NOT NULL;
+
+#고속 검색을 위해서 인덱스 걸기
+ALTER TABLE `reply` ADD KEY (`relTypeCode` , `relId`); 
+#select from reply where relTypeCode ='article' and relId =5;
+#
