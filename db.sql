@@ -114,3 +114,35 @@ SET boardId = FLOOR(RAND() * 2) + 1
 WHERE boardId = 0;
 
 SELECT COUNT(*) FROM article WHERE boardId = 2;
+
+#댓글 테이블 추가
+CREATE TABLE `reply` (
+    id INT(10) UNSIGNED NOT NULL PRIMARY KEY AUTO_INCREMENT,
+    regDate DATETIME NOT NULL,
+    updatedate DATETIME NOT NULL,
+    articleId INT(10) UNSIGNED NOT NULL,
+    memberId INT(10) UNSIGNED NOT NULL,
+    `body` TEXT NOT NULL
+    );
+    
+#댓글 테이블에 데이터 추가
+INSERT INTO reply
+SET regDate = NOW(),
+    updateDate = NOW(),
+    articleId = 1,
+    memberId = 1,
+    `body` = '내용1 입니다.';
+    
+INSERT INTO reply
+SET regDate = NOW(),
+    updateDate = NOW(),
+    articleId = 1,
+    memberId = 2,
+    `body` = '내용2 입니다.';
+    
+INSERT INTO reply
+SET regDate = NOW(),
+    updateDate = NOW(),
+    articleId = 2,
+    memberId = 1,
+    `body` = '내용3 입니다.';

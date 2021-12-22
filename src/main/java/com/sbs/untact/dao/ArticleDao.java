@@ -29,4 +29,6 @@ public interface ArticleDao {
 			@Param("searchKeyword") String searchKeyword, @Param("limitStart")int limitStart, @Param("limitTake")int limitTake);
 
 	public Board getBoard(@Param("id") int id);
+
+	public void addReply(Map<String, Object> param);
 }
